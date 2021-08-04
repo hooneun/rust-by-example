@@ -85,6 +85,16 @@ struct Color {
     blue: u8,
 }
 
+impl Display for Color {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(
+            f,
+            "({}, {}, {}) 0x{:X}{:X}{:X}",
+            self.red, self.green, self.blue, self.red, self.green, self.blue
+        )
+    }
+}
+
 fn main() {
     let minmax = MinMax(0, 14);
 
@@ -114,4 +124,47 @@ fn main() {
 
     let v = List(vec![1, 2, 3]);
     println!("{}", v);
+
+    for city in [
+        City {
+            name: "Dublin",
+            lat: 53.347778,
+            lon: -6.259722,
+        },
+        City {
+            name: "Oslo",
+            lat: 59.95,
+            lon: 10.75,
+        },
+        City {
+            name: "Vancouver",
+            lat: 49.25,
+            lon: -123.1,
+        },
+    ]
+    .iter()
+    {
+        println!("{}", *city);
+    }
+    for color in [
+        Color {
+            red: 128,
+            green: 255,
+            blue: 90,
+        },
+        Color {
+            red: 0,
+            green: 3,
+            blue: 254,
+        },
+        Color {
+            red: 0,
+            green: 0,
+            blue: 0,
+        },
+    ]
+    .iter()
+    {
+        println!("{}", *color);
+    }
 }
