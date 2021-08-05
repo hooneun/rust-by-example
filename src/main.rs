@@ -1,190 +1,53 @@
-use std::fmt::{self, Display, Formatter};
+use core::fmt;
+use std::fmt::{Display, Formatter};
 
-#[derive(Debug)]
-struct MinMax(i64, i64);
+fn reverse(pair: &(f32, f32, f32, f32)) -> (f32, f32, f32, f32) {
+    (pair.0, pair.1, pair.2, pair.3)
+}
 
-impl fmt::Display for MinMax {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "({}, {})", self.0, self.1)
-    }
+fn transpose(matrix: Matrix) -> Matrix {
+    Matrix(matrix.0, matrix.2, matrix.1, matrix.3)
 }
 
 #[derive(Debug)]
-struct Point2D {
-    x: f64,
-    y: f64,
-}
+struct Matrix(f32, f32, f32, f32);
 
-// Similarly, implement `Display` for `Point2D`
-impl fmt::Display for Point2D {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Customize so only `x` and `y` are denoted.
-        write!(f, "x: {}, y: {}", self.x, self.y)
-    }
-}
-
-#[derive(Debug)]
-struct Complex {
-    real: f64,
-    imag: f64,
-}
-
-impl fmt::Display for Complex {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} + {}", self.real, self.imag)
-    }
-}
-
-struct List(Vec<i32>);
-
-impl fmt::Display for List {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let vec = &self.0;
-
-        write!(f, "[")?;
-
-        // index, value
-        for (count, v) in vec.iter().enumerate() {
-            if count != 0 {
-                write!(f, ", ")?;
-            }
-            write!(f, "{}: {}", count, v)?;
-        }
-
-        write!(f, "]")
-    }
-}
-
-struct City {
-    name: &'static str,
-    lat: f32,
-    lon: f32,
-}
-
-impl Display for City {
+impl Display for Matrix {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
-        let lon_c = if self.lon >= 0.0 { 'E' } else { 'W' };
-
-        write!(
-            f,
-            "{}: {:.3}°{} {:.3}°{}",
-            self.name,
-            self.lat.abs(),
-            lat_c,
-            self.lon.abs(),
-            lon_c
-        )
-    }
-}
-
-#[derive(Debug)]
-struct Color {
-    red: u8,
-    green: u8,
-    blue: u8,
-}
-
-impl Display for Color {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(
-            f,
-            "({}, {}, {}) 0x{:X}{:X}{:X}",
-            self.red, self.green, self.blue, self.red, self.green, self.blue
-        )
+        write!(f, "( {} {} ) \n( {} {} )", self.0, self.1, self.2, self.3)
     }
 }
 
 fn main() {
-    let minmax = MinMax(0, 14);
-
-    println!("Display: {}", minmax);
-    println!("Debug: {:?}", minmax);
-
-    let big_range = MinMax(-300, 300);
-    let small_range = MinMax(-3, 3);
-
-    println!(
-        "The big ragne is {big} and the small is {small}",
-        small = small_range,
-        big = big_range
+    let long_tuple = (
+        1u8, 2u16, 3u32, 4u64, -1i8, -2i16, -3i32, -4i64, 0.1f32, 0.2f64, 'a', true,
     );
 
-    let point = Point2D { x: 3.3, y: 7.2 };
-    println!("Compare points:");
-    println!("Display: {}", point);
-    println!("Debug: {:?}", point);
+    println!("long tuple first value: {}", long_tuple.0);
+    println!("long tuple second value: {}", long_tuple.1);
 
-    let complex = Complex {
-        real: 3.3,
-        imag: 7.2,
-    };
-    println!("Display: {}", complex);
-    println!("Debug: {:?}", complex);
+    let tuple_of_tuples = ((1u8, 2u16, 2u32), (4u64, -1i8), -2i16);
+    // let too_long_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+    // println!("too long tuple: {:?}", too_long_tuple);
+    //
+    let pair = (1, true);
+    println!("pair is {:?}", pair);
 
-    let v = List(vec![1, 2, 3]);
-    println!("{}", v);
+    //    println!("the reversed is pair is {:?}", reverse(pair));
 
-    for city in [
-        City {
-            name: "Dublin",
-            lat: 53.347778,
-            lon: -6.259722,
-        },
-        City {
-            name: "Oslo",
-            lat: 59.95,
-            lon: 10.75,
-        },
-        City {
-            name: "Vancouver",
-            lat: 49.25,
-            lon: -123.1,
-        },
-    ]
-    .iter()
-    {
-        println!("{}", *city);
-    }
-    for color in [
-        Color {
-            red: 128,
-            green: 255,
-            blue: 90,
-        },
-        Color {
-            red: 0,
-            green: 3,
-            blue: 254,
-        },
-        Color {
-            red: 0,
-            green: 0,
-            blue: 0,
-        },
-    ]
-    .iter()
-    {
-        println!("{}", *color);
-    }
+    println!("one element tuple: {:?}", (5u32,));
+    println!("just an integer: {:?}", (5u32));
 
-    // Integer addtion
-    println!("1 + 2 = {}", 1u32 + 2);
+    let tuple = (1, "hello", 4.5, true);
 
-    // Integer subtraction
-    println!("1 - 2 = {}", 1i32 - 2);
+    let (a, b, c, d) = tuple;
+    println!("{:?}, {:?}, {:?}, {:?}", a, b, c, d);
 
-    // Short-circuiting boolean logic
-    println!("true AND false is {}", true && false);
-    println!("true OR false is {}", true || false);
-    println!("NOT true is {}", !true);
+    let matrix = Matrix(1.1, 1.2, 2.1, 2.2);
+    println!("{:?}", matrix);
 
-    // Bitwise operations
-    println!("0011 AND 0101 is {:04b}", 0b0011u32 & 0b0101);
-    println!("0011 OR 0101 is {:04b}", 0b0011u32 | 0b0101);
-    println!("0011 XOR 0101 is {:04b}", 0b0011u32 ^ 0b0101);
-    println!("1 << 5 is {}", 1u32 << 5);
-    println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2);
+    println!("{}", matrix);
 
-    println!("One million is written as {}", 1_000_000u32);
+    println!("Matrix:\n{}", matrix);
+    println!("Transpose:\n{}", transpose(matrix));
 }
