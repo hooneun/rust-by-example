@@ -1,44 +1,72 @@
-use std::mem;
+#[derive(Debug)]
+struct Person {
+    name: String,
+    age: u8,
+}
 
-fn analyze_slice(slice: &[i32]) {
-    println!("전달된 슬라이스의 첫 요소는 {}입니다.", slice[0]);
-    println!(
-        "전달된 슬라이스는 {}개의 요소를 가지고 있습니다.",
-        slice.len()
-    );
+struct Unit;
+
+struct Pair(i32, f32);
+
+#[derive(Debug)]
+struct Point {
+    x: f32,
+    y: f32,
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn rect_area(rect: Rectangle) -> f32 {
+    rect.top_left.y * rect.bottom_right.x
+}
+
+fn square(p: Point, f: f32) -> Rectangle {
+    Rectangle {
+        top_left: Point { y: f, x: 0.0 },
+        bottom_right: Point { x: f, ..p },
+    }
 }
 
 fn main() {
-    // 길이가 고정된 배열
-    let xs: [i32; 5] = [1, 2, 3, 4, 5];
+    let name = String::from("Peter");
+    let age = 27;
+    let peter = Person { name, age };
 
-    // 모든 요소들을 같은 값으로 초기화
-    let ys: [i32; 500] = [0; 500];
+    println!("{:?}", peter);
 
-    println!("배열의 첫번째 요소: {}", xs[0]);
-    println!("배열의 두번째 요소: {}", xs[1]);
-    println!("배열의 요소의 갯수: {}", xs.len());
+    let point: Point = Point { x: 10.3, y: 0.4 };
+    println!("point coordinates: ({}, {})", point.x, point.y);
 
-    println!("ys 배열의 첫번째 요소: {}", ys[0]);
-    println!("ys 배열의 두번째 요소: {}", ys[1]);
-    println!("ys 배열의 요소의 갯수: {}", ys.len());
+    let bottom_right = Point { x: 5.2, ..point };
+    println!("second point: ({}, {})", bottom_right.x, bottom_right.y);
 
-    println!(
-        "배열에는 {} 바이트가 할당되어 있습니다.",
-        mem::size_of_val(&xs)
-    );
+    let Point {
+        x: left_edge,
+        y: top_edge,
+    } = point;
 
-    // 배열은 자동으로 슬라이스 형태로 빌릴수있다.
-    println!("배열 전체를 슬라이스로 빌립니다.");
-    analyze_slice(&xs);
+    let rectangle = Rectangle {
+        top_left: Point {
+            x: left_edge,
+            y: top_edge,
+        },
+        bottom_right: bottom_right,
+    };
 
-    // 슬라이스느 배열의 특정 부분을 지정할 수 있습니다.
-    // 문법은 [starting_index..ending_index] 입니다.
-    // starting_index 는 슬라이스의 처음을 나타내고
-    // ending_index 는 슬라이스의 마지막 위치를 나타냅니다.
-    println!("배열의 일부를 슬라이스로 빌립니다");
-    analyze_slice(&ys[1..4]);
+    println!("Rect area: {}", rect_area(rectangle));
 
-    // 아래 문장에서는 index out of bounds 오류가 발생합니다.
-    println!("{}", ys[5]);
+    let _unit = Unit;
+    let pair = Pair(1, 0.1);
+
+    println!("pair contains {:?} and {:?}", pair.0, pair.1);
+
+    let Pair(integer, decimal) = pair;
+
+    println!("pair contains {:?} and {:?}", integer, decimal);
+
+    println!("square: {:?}", square(point, 4.0));
 }
