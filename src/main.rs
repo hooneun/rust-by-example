@@ -1,54 +1,47 @@
-enum WebEvent {
-    PageLoad,
-    PageUnload,
-    KeyPress(char),
-    Paste(String),
-    Click { x: i64, y: i64 },
+#![allow(dead_code)]
+
+enum Status {
+    Rich,
+    Poor,
 }
 
-fn inspect(event: WebEvent) {
-    match event {
-        WebEvent::PageLoad => println!("page loaded"),
-        WebEvent::PageUnload => println!("page unloaded"),
-        WebEvent::KeyPress(c) => println!("pressed '{}'.", c),
-        WebEvent::Paste(s) => println!("pasted \"{}\".", s),
-        WebEvent::Click { x, y } => {
-            println!("clicked at x={}, y={}.", x, y);
-        }
-    }
+enum Work {
+    Civilian,
+    Soldier,
 }
 
-#[derive(Debug)]
-enum VeryVerboseEnumOfThingsToDoWithNumbers {
-    Add,
-    Subtract,
+enum Number {
+    Zero,
+    One,
+    Two,
 }
 
-impl VeryVerboseEnumOfThingsToDoWithNumbers {
-    fn run(&self, x: i32, y: i32) -> i32 {
-        match self {
-            Self::Add => x + y,
-            Self::Subtract => x - y,
-        }
-    }
+enum Color {
+    Red = 0xff0000,
+    Green = 0x00ff00,
+    Blue = 0x0000ff,
 }
 
 fn main() {
-    let pressed = WebEvent::KeyPress('x');
-    let pasted = WebEvent::Paste("my text".to_string());
-    let click = WebEvent::Click { x: 20, y: 80 };
-    let load = WebEvent::PageLoad;
-    let unload = WebEvent::PageUnload;
+    use crate::Status::{Poor, Rich};
+    use crate::Work::*;
 
-    inspect(pressed);
-    inspect(pasted);
-    inspect(click);
-    inspect(load);
-    inspect(unload);
+    let status = Poor;
+    let work = Civilian;
 
-    let x = VeryVerboseEnumOfThingsToDoWithNumbers::Add;
-    let y = VeryVerboseEnumOfThingsToDoWithNumbers::Subtract;
+    match status {
+        Rich => println!("The rich have lots of money!"),
+        Poor => println!("The poor have no money..."),
+    }
 
-    println!("{}", x.run(1, 2));
-    println!("{}", y.run(3, 2));
+    match work {
+        Civilian => println!("Civilians work!"),
+        Soldier => println!("Soldiers fight!"),
+    }
+
+    println!("zero is {}", Number::Zero as i32);
+    println!("one is {}", Number::One as i32);
+
+    println!("roses are #{:06x}", Color::Red as i32);
+    println!("violets ars #{:06x}", Color::Blue as i32);
 }
