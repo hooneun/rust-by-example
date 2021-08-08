@@ -1,20 +1,15 @@
 fn main() {
-    let a_binding;
+    let mut mutable_integer = 7i32;
 
     {
-        let x = 2;
+        let mutable_integer = mutable_integer;
 
-        // a_binding varible initialize
-        a_binding = x * x;
+        println!("{}", mutable_integer);
     }
 
-    println!("a binding: {}", a_binding);
+    println!("{}", mutable_integer);
 
-    let another_binding;
+    mutable_integer = 3;
 
-    //println!("another binding: {}", another_binding);
-
-    another_binding = 1;
-
-    println!("another binding: {}", another_binding);
+    println!("{}", mutable_integer);
 }
