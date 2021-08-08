@@ -1,29 +1,20 @@
 fn main() {
-    let long_lived_binding = 1;
+    let a_binding;
 
     {
-        let short_lived_binding = 2;
+        let x = 2;
 
-        println!("inner short: {}", short_lived_binding);
+        // a_binding varible initialize
+        a_binding = x * x;
     }
 
-    //println!("outer short: {}", short_lived_binding);
+    println!("a binding: {}", a_binding);
 
-    println!("outer long: {}", long_lived_binding);
+    let another_binding;
 
-    let shadowed_binding = 1;
+    //println!("another binding: {}", another_binding);
 
-    {
-        println!("before being shadowed: {}", shadowed_binding);
+    another_binding = 1;
 
-        let shadowed_binding = "abd";
-
-        println!("shadowed inner block: {}", shadowed_binding);
-    }
-
-    println!("outside inner block: {}", shadowed_binding);
-
-    let shadowed_binding = 2;
-
-    println!("shadowed in outer block: {}", shadowed_binding);
+    println!("another binding: {}", another_binding);
 }
