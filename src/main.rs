@@ -1,13 +1,15 @@
-static LANGUAGE: &str = "Rust";
-const THRESHOLD: i32 = 10;
-
-fn is_big(n: i32) -> bool {
-    n > THRESHOLD
-}
 fn main() {
-    let n = 16;
+    let an_integer = 1u32;
+    let a_boolean = true;
+    let unit = ();
 
-    println!("This is {}", LANGUAGE);
-    println!("The threshold is {}", THRESHOLD);
-    println!("{} is {}", n, if is_big(n) { "big" } else { "small" });
+    let copied_integer = an_integer;
+
+    println!("An integer: {:?}", copied_integer);
+    println!("A boolean: {:?}", a_boolean);
+    println!("Meet the unit value: {:?}", unit);
+
+    let _unused_variable = 3u32;
+
+    let _noisy_unused_variable = 2u32;
 }
