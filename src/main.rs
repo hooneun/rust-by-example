@@ -1,12 +1,29 @@
 fn main() {
-    let _immutable_binding = 1;
-    let mut mutable_binding = 1;
+    let long_lived_binding = 1;
 
-    println!("Before mutation: {}", mutable_binding);
+    {
+        let short_lived_binding = 2;
 
-    mutable_binding += 1;
+        println!("inner short: {}", short_lived_binding);
+    }
 
-    println!("After mutation: {}", mutable_binding);
+    //println!("outer short: {}", short_lived_binding);
 
-    //_immutable_binding += 1;
+    println!("outer long: {}", long_lived_binding);
+
+    let shadowed_binding = 1;
+
+    {
+        println!("before being shadowed: {}", shadowed_binding);
+
+        let shadowed_binding = "abd";
+
+        println!("shadowed inner block: {}", shadowed_binding);
+    }
+
+    println!("outside inner block: {}", shadowed_binding);
+
+    let shadowed_binding = 2;
+
+    println!("shadowed in outer block: {}", shadowed_binding);
 }
