@@ -1,15 +1,12 @@
 fn main() {
-    let an_integer = 1u32;
-    let a_boolean = true;
-    let unit = ();
+    let _immutable_binding = 1;
+    let mut mutable_binding = 1;
 
-    let copied_integer = an_integer;
+    println!("Before mutation: {}", mutable_binding);
 
-    println!("An integer: {:?}", copied_integer);
-    println!("A boolean: {:?}", a_boolean);
-    println!("Meet the unit value: {:?}", unit);
+    mutable_binding += 1;
 
-    let _unused_variable = 3u32;
+    println!("After mutation: {}", mutable_binding);
 
-    let _noisy_unused_variable = 2u32;
+    //_immutable_binding += 1;
 }
