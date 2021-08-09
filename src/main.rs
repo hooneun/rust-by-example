@@ -1,17 +1,50 @@
-type NanoSecond = u64;
-type Inch = u64;
+use std::convert::{From, TryFrom, TryInto};
 
-#[allow(non_camel_cace_types)]
-type u64_t = u64;
+#[derive(Debug)]
+struct Number {
+    value: i32,
+}
+
+#[derive(Debug)]
+struct EvenNumber(i32);
+
+impl TryFrom<i32> for EvenNumber {
+    type Error = ();
+
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        if value % 2 == 0 {
+            Ok(EvenNumber(value))
+        } else {
+            Err(())
+        }
+    }
+}
+
+impl From<i32> for Number {
+    fn from(item: i32) -> Self {
+        Number { value: item }
+    }
+}
 
 fn main() {
-    let nanoseconds: NanoSecond = 5 as u64_t;
-    let inches: Inch = 2 as u64_t;
+    //let my_str = "hello";
+    //let my_string = String::from(my_str);
+    //println!("{:?} {:?}", my_str, my_string);
 
-    println!(
-        "{} nanoseconds + {} inches = {} unit?",
-        nanoseconds,
-        inches,
-        nanoseconds + inches
-    );
+    let num = Number::from(30);
+    println!("My number is {:?}", num);
+
+    let int = 4;
+    let num: Number = int.into();
+
+    println!("My number is {:?}", num);
+
+    assert_eq!(EvenNumber::try_from(8), Ok(EvenNumber(8)));
+    assert_eq!(EvenNumber::try_from(5), Err(()));
+
+    // ING
+    //    let result: Result<EvenNumber, ()> = 8i32.try_into();
+    //    assert_eq!(result, Ok(EvenNumber(8)));
+    //    let result: Result<EvenNumber, ()> = 5i32.try_into();
+    //    assert_eq!(result, Err(()));
 }
