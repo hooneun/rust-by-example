@@ -1,21 +1,17 @@
+#![allow(unreachable_code)]
+
 fn main() {
-    let mut count = 0u32;
+    'outer: loop {
+        println!("Entered the outer loop");
 
-    println!("Let's count until infinity!");
+        'inner: loop {
+            println!("Entered the inner loop");
 
-    loop {
-        count += 1;
-
-        if count == 3 {
-            println!("three");
-            continue;
+            break 'outer;
         }
-        println!("{}", count);
 
-        if count == 5 {
-            println!("OK, that's enough");
-
-            break;
-        }
+        println!("This point will never be reached");
     }
+
+    println!("Exited the outer loop");
 }
