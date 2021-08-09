@@ -1,19 +1,23 @@
 fn main() {
-    let x = 5u32;
+    let n = 10;
 
-    let y = {
-        //25
-        let x_squared = x * x;
-        // 25 * 5 = 125
-        let x_cube = x_squared * x;
+    if n < 0 {
+        println!("{} is negative", n);
+    } else if n > 0 {
+        println!("{} is positive", n);
+    } else {
+        println!("{} is zero", n);
+    }
 
-        // 25 * 125 + 5
-        x_cube * x_squared + x
+    let big_n = if n < 10 && n > -10 {
+        println!(", and is a small number, increase ten-fold");
+
+        10 * n
+    } else {
+        println!(", and is a big number, halve the number");
+
+        n / 2
     };
 
-    let z = { 2 * x };
-
-    println!("x is {:?}", x);
-    println!("y is {:?}", y);
-    println!("z is {:?}", z);
+    println!("{} -> {}", n, big_n);
 }
