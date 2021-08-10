@@ -15,6 +15,7 @@ fn main() {
     //        n += 1;
     //    }
 
+    // for i in 1..101
     for i in 1..=100 {
         if i % 15 == 0 {
             println!("fizzbuzz");
