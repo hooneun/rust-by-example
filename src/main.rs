@@ -1,30 +1,21 @@
 fn main() {
-    //let names = vec!["Bob", "Frank", "Ferris"];
+    let number = 13;
 
-    //    // iter
-    //    for name in names.iter() {
-    //        match name {
-    //            &"Ferris" => println!("There is a rustacean among us!"),
-    //            _ => println!("Hello {}", name),
-    //        }
-    //    }
-    //
-    //    // into_iter
-    //    // names move
-    //    for name in names.into_iter() {
-    //        match name {
-    //            "Ferris" => println!("There is a rustacean among us!"),
-    //            _ => println!("Hello {}", name),
-    //        }
-    //    }
-    //
-    let mut names = vec!["Bob", "Frank", "Ferris"];
-    for name in names.iter_mut() {
-        *name = match name {
-            &mut "Ferris" => "There is a rustacean among us!",
-            _ => "Hello",
-        }
+    println!("Tell me about {}", number);
+
+    match number {
+        1 => println!("One!"),
+        2 | 3 | 5 | 7 | 11 => println!("This is a prime"),
+        13..=19 => println!("A teen"),
+        _ => println!("Ain't special"),
     }
 
-    println!("{:?}", names);
+    let boolean = true;
+
+    let binary = match boolean {
+        false => 0,
+        true => 1,
+    };
+
+    println!("{} -> {}", boolean, binary);
 }
