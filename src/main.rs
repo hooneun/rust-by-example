@@ -1,31 +1,29 @@
-#[allow(dead_code)]
-enum Color {
-    Red,
-    Blue,
-    Green,
-    RGB(u32, u32, u32),
-    HSV(u32, u32, u32),
-    HSL(u32, u32, u32),
-    CMY(u32, u32, u32),
-    CMYK(u32, u32, u32, u32),
-}
-
 fn main() {
-    let color = Color::RGB(122, 17, 40);
+    let reference = &4;
 
-    println!("What color is it?");
+    match reference {
+        &val => println!("Got a value via destructuring: {:?}", val),
+    }
+    println!("{:?}", reference);
 
-    match color {
-        Color::Red => println!("The color is Red!"),
-        Color::Blue => println!("The color is Blue!"),
-        Color::Green => println!("The color is Green!"),
-        Color::RGB(r, g, b) => println!("Red: {}, green: {}, and blue: {}!", r, g, b),
-        Color::HSV(h, s, v) => println!("Hue: {}, saturation: {}, value: {}!", h, s, v),
-        Color::HSL(h, s, l) => println!("Hue: {}, saturation: {}, lightness: {}!", h, s, l),
-        Color::CMY(c, m, y) => println!("Cyan: {}, magenta: {}, yellow: {}!", c, m, y),
-        Color::CMYK(c, m, y, k) => println!(
-            "Cyan: {}, magenta: {}, yellow: {}, key (black): {}!",
-            c, m, y, k
-        ),
+    match *reference {
+        val => println!("Got a value via dereferencing: {:?}", val),
+    }
+
+    let _not_a_reference = 3;
+    let ref _is_a_refercence = 3;
+
+    let value = 5;
+    let mut mut_value = 6;
+
+    match value {
+        ref r => println!("Got a reference to a value: {:?}", r),
+    }
+
+    match mut_value {
+        ref mut m => {
+            *m += 10;
+            println!("We added 10, `mut_value`: {:?}", m);
+        }
     }
 }
