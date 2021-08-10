@@ -1,30 +1,30 @@
 fn main() {
-    //    let mut n = 1;
-    //
-    //    while n < 101 {
-    //        if n % 15 == 0 {
-    //            println!("fizzbuzz");
-    //        } else if n % 3 == 0 {
-    //            println!("fizz");
-    //        } else if n % 5 == 0 {
-    //            println!("buzz");
-    //        } else {
-    //            println!("{}", n);
-    //        }
-    //
-    //        n += 1;
-    //    }
+    //let names = vec!["Bob", "Frank", "Ferris"];
 
-    // for i in 1..101
-    for i in 1..=100 {
-        if i % 15 == 0 {
-            println!("fizzbuzz");
-        } else if i % 3 == 0 {
-            println!("fizz");
-        } else if i % 5 == 0 {
-            println!("buzz");
-        } else {
-            println!("{}", i);
+    //    // iter
+    //    for name in names.iter() {
+    //        match name {
+    //            &"Ferris" => println!("There is a rustacean among us!"),
+    //            _ => println!("Hello {}", name),
+    //        }
+    //    }
+    //
+    //    // into_iter
+    //    // names move
+    //    for name in names.into_iter() {
+    //        match name {
+    //            "Ferris" => println!("There is a rustacean among us!"),
+    //            _ => println!("Hello {}", name),
+    //        }
+    //    }
+    //
+    let mut names = vec!["Bob", "Frank", "Ferris"];
+    for name in names.iter_mut() {
+        *name = match name {
+            &mut "Ferris" => "There is a rustacean among us!",
+            _ => "Hello",
         }
     }
+
+    println!("{:?}", names);
 }
