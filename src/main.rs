@@ -1,21 +1,11 @@
 fn main() {
-    let number = 13;
+    let triple = (4, -2, 3);
 
-    println!("Tell me about {}", number);
+    println!("Tell me about {:?}", triple);
 
-    match number {
-        1 => println!("One!"),
-        2 | 3 | 5 | 7 | 11 => println!("This is a prime"),
-        13..=19 => println!("A teen"),
-        _ => println!("Ain't special"),
+    match triple {
+        (0, y, z) => println!("First is `0`, `y` is {:?}, and `z` is {:?}", y, z),
+        (1, ..) => println!("First is `1` and the rest doesn't matter"),
+        _ => println!("It doesn't matter what they are"),
     }
-
-    let boolean = true;
-
-    let binary = match boolean {
-        false => 0,
-        true => 1,
-    };
-
-    println!("{} -> {}", boolean, binary);
 }
