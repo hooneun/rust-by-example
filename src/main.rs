@@ -1,29 +1,21 @@
 fn main() {
-    let reference = &4;
-
-    match reference {
-        &val => println!("Got a value via destructuring: {:?}", val),
-    }
-    println!("{:?}", reference);
-
-    match *reference {
-        val => println!("Got a value via dereferencing: {:?}", val),
+    struct Foo {
+        x: (u32, u32),
+        y: u32,
     }
 
-    let _not_a_reference = 3;
-    let ref _is_a_refercence = 3;
+    let foo = Foo { x: (2, 2), y: 2 };
 
-    let value = 5;
-    let mut mut_value = 6;
+    match foo {
+        Foo { x: (1, b), y } => println!("First of x is 1, b = {},  y = {} ", b, y),
 
-    match value {
-        ref r => println!("Got a reference to a value: {:?}", r),
-    }
+        // you can destructure structs and rename the variables,
+        // the order is not important
+        Foo { y: 2, x: i } => println!("y is 2, i = {:?}", i),
 
-    match mut_value {
-        ref mut m => {
-            *m += 10;
-            println!("We added 10, `mut_value`: {:?}", m);
-        }
+        // and you can also ignore some variables:
+        Foo { y, .. } => println!("y = {}, we don't care about x", y),
+        // this will give an error: pattern does not mention field `x`
+        //Foo { y } => println!("y = {}", y),
     }
 }
